@@ -168,7 +168,7 @@
           .then(res => res.json())
           .then(data => {
             if (data.articles.length > 0) {
-              this.app.articles = data.articles;
+              this.app.articles = this.app.articles.concat(data.articles);
               this.app.moreArticlesText = 'více článků';
               this.app.skip = this.app.skip + limit;
             } else {

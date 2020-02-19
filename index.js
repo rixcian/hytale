@@ -43,15 +43,20 @@ app.get('/clanek/:uriName', async (req, res) => {
     .populate('author', '_id username avatarPath')
     .exec();
 
-    const prevArticle = await Article.findOne({ createdAt: { $lt: article.createdAt } })
+    const prevArticle = await Article.find({ createdAt: { $lt: article.createdAt } })
       .select('-_id title thumbnailImagePath uriName')
+      .sort({ createdAt: -1 })
       .exec();
 
-    const nextArticle = await Article.findOne({ createdAt: { $gt: article.createdAt } })
+    const nextArticle = await Article.find({ createdAt: { $gt: article.createdAt } })
       .select('-_id title thumbnailImagePath uriName')
+      .sort({ createdAt: 1 })
       .exec();
 
-    res.render('article', { article, prevArticle, nextArticle });
+    console.log(prevArticle);
+    console.log(nextArticle);
+
+    res.render('article', { article, prevArticle: prevArticle[0], nextArticle: nextArticle[0] });
 
   } catch (err) {
     res.render('_errors/500');

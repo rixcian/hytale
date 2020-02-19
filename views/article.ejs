@@ -85,7 +85,7 @@
         <div class="article-more">
           <div class="prev-article">
             <p>Předchozí článek</p>
-            <% if (prevArticle !== null) { %>
+            <% if (prevArticle !== undefined) { %>
               <a href="/clanek/<%= prevArticle.uriName %>">
                 <div class="prev-article-content">
                   <img
@@ -108,7 +108,7 @@
           </div>
           <div class="next-article">
             <p>Další článek</p>
-            <% if (nextArticle !== null) { %>
+            <% if (nextArticle !== undefined) { %>
                 <a href="/clanek/<%= nextArticle.uriName %>">
                   <div class="next-article-content">
                     <img
