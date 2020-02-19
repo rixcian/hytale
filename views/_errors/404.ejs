@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Český Hytale | Stránka nebyla nelezana</title>
+    <link
+      rel="shortcut icon"
+      type="image/png"
+      href="/img/favicon/favicon_x32.png"
+    />
+    <link rel="apple-touch-icon" href="/img/favicon/favicon_x32.png" />
+
+    <style>
+      @font-face {
+        font-family: NotoSans;
+        src: url(/fonts/NotoSans-Regular.woff);
+        font-weight: 400;
+      }
+
+      @font-face {
+        font-family: NotoSans;
+        src: url(/fonts/NotoSans-Bold.woff);
+        font-weight: 700;
+      }
+
+      @font-face {
+        font-family: NotoSans;
+        src: url(/fonts/NotoSans-Light.woff);
+        font-weight: 300;
+      }
+
+      * {
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+      }
+
+      body {
+        padding: 0;
+        margin: 0;
+      }
+
+      #notfound {
+        position: relative;
+        height: 100vh;
+        background-color: #111111;
+      }
+
+      #notfound .notfound {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        -webkit-transform: translate(-50%, -50%);
+        -ms-transform: translate(-50%, -50%);
+        transform: translate(-50%, -50%);
+      }
+
+      .notfound {
+        max-width: 520px;
+        width: 100%;
+        line-height: 1.4;
+        text-align: center;
+      }
+
+      .notfound .notfound-404 {
+        position: relative;
+        height: 240px;
+      }
+
+      .notfound .notfound-404 h1 {
+        font-family: "NotoSans", sans-serif;
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        -webkit-transform: translate(-50%, -50%);
+        -ms-transform: translate(-50%, -50%);
+        transform: translate(-50%, -50%);
+        font-size: 14rem;
+        font-weight: 900;
+        margin: 0px;
+        text-transform: uppercase;
+        background: linear-gradient(#ffe98d, #e19f27);
+        background-clip: border-box;
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+
+      .notfound .notfound-404 h3 {
+        font-family: "NotoSans", sans-serif;
+        position: relative;
+        font-size: 16px;
+        font-weight: 700;
+        text-transform: uppercase;
+        color: #ffffff;
+        margin: 0px;
+        letter-spacing: 3px;
+        padding-left: 6px;
+      }
+
+      .notfound h2 {
+        font-family: "NotoSans", sans-serif;
+        font-size: 20px;
+        font-weight: 400;
+        text-transform: uppercase;
+        color: #ffffff;
+        margin-top: 0px;
+        margin-bottom: 25px;
+      }
+
+      .btn-morearticles {
+        padding: 10px 20px;
+        border-radius: 5px;
+        background: -webkit-gradient(
+          linear,
+          left top,
+          left bottom,
+          from(#222222),
+          to(#111111)
+        );
+        background: linear-gradient(#222222, #111111);
+        border: none;
+        font-family: "NotoSans", sans-serif;
+        font-weight: 700;
+        letter-spacing: 2px;
+        margin-top: 40px;
+        -webkit-transition: all 0.25s ease-in-out;
+        transition: all 0.25s ease-in-out;
+      }
+
+      .btn-morearticles span {
+        text-transform: uppercase;
+        background: -webkit-gradient(
+          linear,
+          left top,
+          left bottom,
+          from(#ffe98d),
+          to(#e19f27)
+        );
+        background: linear-gradient(#ffe98d, #e19f27);
+        background-clip: border-box;
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+        text-align: center;
+      }
+
+      .btn-morearticles:hover {
+        cursor: pointer;
+        -webkit-box-shadow: 0px 4px 20px 4px rgba(0, 0, 0, 0.4);
+        box-shadow: 0px 4px 20px 4px rgba(0, 0, 0, 0.4);
+      }
+
+      @media only screen and (max-width: 767px) {
+        .notfound .notfound-404 {
+          height: 200px;
+        }
+        .notfound .notfound-404 h1 {
+          font-size: 200px;
+        }
+      }
+
+      @media only screen and (max-width: 480px) {
+        .notfound .notfound-404 {
+          height: 200px;
+        }
+        .notfound .notfound-404 h1 {
+          font-size: 162px;
+          height: 150px;
+          line-height: 162px;
+        }
+        .notfound h3 {
+          font-size: 14px !important;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div id="notfound">
+      <div class="notfound">
+        <div class="notfound-404">
+          <h3>Oops! Stránka nebyla nalezena</h3>
+          <h1>404</h1>
+        </div>
+        <a href="/">
+          <button class="btn-morearticles">
+            <span>zpět na hlavní stránku</span>
+          </button>
+        </a>
+      </div>
+    </div>
+  </body>
+</html>

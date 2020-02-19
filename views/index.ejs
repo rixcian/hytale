@@ -1,0 +1,188 @@
+<%- include('layout/header', { title: 'CZ/SK Komunitní Portál' }); %>
+
+<!-- Header Menu -->
+<header class="header-bar">
+  <div class="menu">
+    <ul class="menu-list">
+      <li class="menu-item"><a href="#">blog</a></li>
+      <li class="menu-item"><a href="#">server</a></li>
+      <li class="menu-item menu-brand">
+        <a href="/">
+          <picture>
+            <source srcset="/img/logo/logo.webp" type="image/webp" />
+            <source srcset="/img/logo/logo.png" type="image/png" />
+            <img src="/img/logo/logo.png" alt="Hytale Logo" />
+          </picture>
+        </a>
+      </li>
+      <li class="menu-item"><a href="#">fórum</a></li>
+      <li class="menu-item"><a href="#">přihlášení</a></li>
+      <li class="menu-item menu-icon">
+        <i class="fas fa-bars" id="menu-icon"></i>
+      </li>
+    </ul>
+  </div>
+
+  <div class="header-heading">
+    <h1>První česko-slovenský hytale portál</h1>
+  </div>
+
+</header>
+<!-- /Header Menu -->
+
+
+
+<!-- Main Content -->
+<section id="main">
+  <div class="container">
+    <div class="row">
+      <div class="col-8 main-feed">
+        <h3 class="section-heading">blog</h3>
+        <div class="heading-underline"></div>
+        <div class="articles-wrapper">
+
+          <% articles.forEach(article => { %>
+           
+            <a href="/clanek/<%= article.uriName %> " class="article row">
+              <div class="article-thumbnail-wrapper col-4">
+                <img
+                    class="article-thumbnail"
+                    src="https://hytadmin.rixcian.dev<%= article.thumbnailImagePath %>"
+                    alt="Český Hytale | <%= article.title %> "
+                  />
+              </div>
+              <div class="article-info col-8">
+                <h4 class="article-heading"><%= article.title %> </h4>
+                <div class="article-details">
+                  <div class="article-author">
+                    <div class="article-author-icon">
+                      <img 
+                        class="author-icon" 
+                        src="https://hytadmin.rixcian.dev<%= article.author.avatarPath %>" 
+                        alt="Český Hytale | <%= article.author.username %>"/>
+                    </div>
+                  </div>
+                  <p class="article-author-name"><%= article.author.username %>&nbsp;</p>
+                  <p class="article-published">
+                    <%= new Date(article.createdAt).getDate(); %>.
+                    <%= (new Date(article.createdAt).getMonth()+1); %>.
+                    <%= new Date(article.createdAt).getFullYear(); %> 
+                  </p>
+                </div>
+              </div>
+              <div class="article-divider"></div>
+            </a>
+
+          <% }) %>
+
+
+          <div v-for="article in articles">
+            <a :href="'/clanek/' + article.uriName" class="article row">
+              <div class="article-thumbnail-wrapper col-4">
+                <img
+                    class="article-thumbnail"
+                    :src="'https://hytadmin.rixcian.dev' + article.thumbnailImagePath"
+                    :alt="'Český Hytale | ' + article.title"
+                  />
+              </div>
+              <div class="article-info col-8">
+                <h4 class="article-heading">{{ article.title }}</h4>
+                <div class="article-details">
+                  <div class="article-author">
+                    <div class="article-author-icon">
+                      <img 
+                        class="author-icon" 
+                        :src="'https://hytadmin.rixcian.dev' + article.author.avatarPath" 
+                        :alt="'Český Hytale | ' + article.author.username"/>
+                    </div>
+                  </div>
+                  <p class="article-author-name">{{ article.author.username }}&nbsp;</p>
+                  <p class="article-published">
+                    {{ new Date(article.createdAt).getDate() }}.
+                    {{ (new Date(article.createdAt).getMonth()+1) }}.
+                    {{ new Date(article.createdAt).getFullYear() }}
+                  </p>
+                </div>
+              </div>
+              <div class="article-divider"></div>
+            </a>
+          </div>
+
+          
+        </div>
+
+        <button v-if="showMoreArticlesBtn" v-on:click="fetchArticles" class="btn-morearticles">
+          <span>{{ moreArticlesText }}</span>
+        </button>
+
+        <div v-if="!showMoreArticlesBtn" class="no-more-articles">
+          <span>Více už &nbsp;</span> 
+          <picture>
+            <source
+              srcset="/img/icons/kweebec.webp"
+              type="image/webp"
+            />
+            <source
+              srcset="/img/icons/kweebec.png"
+              type="image/png"
+            />
+            <img
+              src="/img/icons/kweebec.png"
+              alt="Český Hytale | Představení zóny 3"
+            />
+          </picture>
+          <span> &nbsp;toho není</span>
+        </div>
+
+      </div>
+
+      <%- include('layout/sidebar'); %> 
+
+    </div>
+  </div>
+</section>
+<!-- Main Content -->
+
+
+<script src="/js/vue.js"></script>
+
+
+<script>
+  var app = new Vue({
+    el: '#main',
+    data: {
+      articles: [],
+      skip: 1,
+      limit: 1,
+      moreArticlesText: 'více článků',
+      showMoreArticlesBtn: true
+    },
+    methods: {
+      fetchArticles: e => {
+        e.preventDefault();
+        this.app.moreArticlesText = '...';
+
+        const { skip, limit } = this.app;
+        
+        fetch(`/clanky/${skip}/${limit}`)
+          .then(res => res.json())
+          .then(data => {
+            if (data.articles.length > 0) {
+              this.app.articles = data.articles;
+              this.app.moreArticlesText = 'více článků';
+              this.app.skip = this.app.skip + limit;
+            } else {
+              this.app.showMoreArticlesBtn = false;
+            }
+
+          })
+          .catch(err => {
+            this.app.moreArticlesText = 'více článků';
+          });
+      }
+    }
+  })
+</script>
+
+
+<%- include('layout/footer') %>

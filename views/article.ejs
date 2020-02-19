@@ -1,0 +1,162 @@
+<%- include('layout/header', { title: article.title }); %>
+
+<link rel="stylesheet" href="/css/article.css">
+
+<div 
+  class="article-detail-thumbnail" 
+  style="background-image: url(https://hytadmin.rixcian.dev<%= article.coverImagePath %>);"
+></div>
+
+<header class="article-detail-header">
+  <div class="menu">
+    <ul class="menu-list">
+      <li class="menu-item"><a href="#">blog</a></li>
+      <li class="menu-item"><a href="#">server</a></li>
+      <li class="menu-item menu-brand">
+        <a href="/">
+          <picture>
+            <source srcset="/img/logo/logo.webp" type="image/webp" />
+            <source srcset="/img/logo/logo.png" type="image/png" />
+            <img src="/img/logo/logo.png" alt="Hytale Logo" />
+          </picture>
+        </a>
+      </li>
+      <li class="menu-item"><a href="#">fórum</a></li>
+      <li class="menu-item"><a href="#">přihlášení</a></li>
+      <li class="menu-item menu-icon">
+        <i class="fas fa-bars" id="menu-icon"></i>
+      </li>
+    </ul>
+  </div>
+
+  <div class="article-title">
+    <h1><%= article.title %> </h1>
+    <div class="article-details">
+      <div class="article-author">
+        <div class="article-author-icon">
+          <img
+              class="author-icon"
+              src="https://hytadmin.rixcian.dev<%= article.author.avatarPath %>"
+              alt="Český Hytale | <%= article.author.username %>"
+            />
+        </div>
+      </div>
+      <p class="article-author-name"><%= article.author.username %>&nbsp;</p>
+      <p class="article-published">
+        <%= new Date(article.createdAt).getDate(); %>.
+        <%= (new Date(article.createdAt).getMonth()+1); %>.
+        <%= new Date(article.createdAt).getFullYear(); %>
+      </p>
+    </div>
+  </div>
+
+</header>
+
+<section id="main">
+  <div class="container">
+    <div class="row">
+      <div class="col-8 main-feed">
+
+        <% article.content.forEach(element => { %>
+         
+          <% if (element.type === "heading") { %>
+            <h2 class="article-h2"><%= element.content %></h2>
+          <% } %>
+
+          <% if (element.type === "text") { %>
+            <p class="article-text"><%= element.content %> </p>
+          <% } %>
+
+          <% if (element.type === "image") { %>
+            <span class="article-image">
+              <img src="https://hytadmin.rixcian.dev<%= element.content %>" alt="Hytale Image" />
+            </span>
+          <% } %>
+
+          <% if (element.type === "video") { %>
+            <video width="100%" controls>
+              <source src="https://hytadmin.rixcian.dev<%= element.content %>" type="video/mp4" />
+              Your browser does not support the video tag.
+            </video>
+          <% } %>
+           
+        <% }) %>
+
+        <div class="article-more">
+          <div class="prev-article">
+            <p>Předchozí článek</p>
+            <% if (prevArticle !== null) { %>
+              <a href="/clanek/<%= prevArticle.uriName %>">
+                <div class="prev-article-content">
+                  <img
+                    class="article-more-thumbnail"
+                    src="https://hytadmin.rixcian.dev<%= prevArticle.thumbnailImagePath %> "
+                    alt="Český Hytale | <%= prevArticle.title %> "
+                  />
+                  <h3 class="prev-article-heading">
+                    <%= prevArticle.title %> 
+                  </h3>
+                </div>
+              </a>
+            <% } else { %>
+              <div class="prev-article-content">
+                <h3 class="prev-article-heading">
+                  Žádný není ...
+                </h3>
+              </div>
+          <% } %>
+          </div>
+          <div class="next-article">
+            <p>Další článek</p>
+            <% if (nextArticle !== null) { %>
+                <a href="/clanek/<%= nextArticle.uriName %>">
+                  <div class="next-article-content">
+                    <img
+                      class="article-more-thumbnail"
+                      src="https://hytadmin.rixcian.dev<%= nextArticle.thumbnailImagePath %> "
+                      alt="Český Hytale | <%= nextArticle.title %> "
+                    />
+                    <h3 class="next-article-heading">
+                      <%= nextArticle.title %> 
+                    </h3>
+                  </div>
+                </a>
+              <% } else { %>
+                <div class="next-article-content">
+                  <h3 class="next-article-heading">
+                    Žádný není ...
+                  </h3>
+                </div>
+            <% } %>
+          </div>
+        </div>
+      </div>
+
+      <%- include('layout/sidebar'); %> 
+
+    </div>
+  </div>
+</section>
+
+<div id="gallery-wrapper">
+  <div class="gallery-img-wrapper">
+    <!-- <button class="gallery-prev-button">prev</button> -->
+    <div>
+      <img src="/" alt="Gallery Image" />
+      <div class="gallery-controls-wrapper">
+        <div class="gallery-btn gallery-btn-prev">
+          <svg aria-hidden="true" data-prefix="fas" data-icon="play" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="svg-inline--fa fa-play fa-w-14"><path fill="currentColor" d="M424.4 214.7L72.4 6.6C43.8-10.3 0 6.1 0 47.9V464c0 37.5 40.7 60.1 72.4 41.3l352-208c31.4-18.5 31.5-64.1 0-82.6z" class=""></path></svg>
+        </div>
+        <span class="gallery-photo-indicator">1 / 2</span>
+        <div class="gallery-btn gallery-btn-next">
+          <svg aria-hidden="true" data-prefix="fas" data-icon="play" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="svg-inline--fa fa-play fa-w-14"><path fill="currentColor" d="M424.4 214.7L72.4 6.6C43.8-10.3 0 6.1 0 47.9V464c0 37.5 40.7 60.1 72.4 41.3l352-208c31.4-18.5 31.5-64.1 0-82.6z" class=""></path></svg>
+        </div>
+      </div>
+    </div>
+    <!-- <button class="gallery-prev-button">next</button> -->
+  </div>
+</div>
+
+<script src="/js/gallery.js"></script>
+
+<%- include('layout/footer') %>
