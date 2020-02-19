@@ -1,7 +1,6 @@
 const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
-const sass = require('node-sass');
 const PORT = process.env.PORT || 5000;
 const keys = require('./config/keys');
 
@@ -51,11 +50,6 @@ app.get('/clanek/:uriName', async (req, res) => {
     const nextArticle = await Article.findOne({ createdAt: { $gt: article.createdAt } })
       .select('-_id title thumbnailImagePath uriName')
       .exec();
-
-
-    console.log(article);
-    console.log(nextArticle);
-    console.log(prevArticle);
 
     res.render('article', { article, prevArticle, nextArticle });
 
