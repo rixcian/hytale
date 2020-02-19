@@ -53,9 +53,6 @@ app.get('/clanek/:uriName', async (req, res) => {
       .sort({ createdAt: 1 })
       .exec();
 
-    console.log(prevArticle);
-    console.log(nextArticle);
-
     res.render('article', { article, prevArticle: prevArticle[0], nextArticle: nextArticle[0] });
 
   } catch (err) {
